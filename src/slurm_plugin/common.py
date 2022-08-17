@@ -413,7 +413,7 @@ class InstanceManager:
             self.delete_instances([instance.id for instance in compute_nodes], terminate_batch_size)
             return True
         except Exception as e:
-            logging.error("Failed when terminating compute fleet with error %s", e)
+            logger.error("Failed when terminating compute fleet with error %s", e)
             return False
 
 
