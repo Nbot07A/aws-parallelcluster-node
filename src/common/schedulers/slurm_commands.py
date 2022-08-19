@@ -321,6 +321,7 @@ def set_nodes_idle(nodes, reason=None, reset_node_addrs_hostname=False):
     else:
         update_nodes(nodes=nodes, state="resume", reason=reason, raise_on_error=False)
 
+
 def get_nodes_info(nodes="", command_timeout=DEFAULT_GET_INFO_COMMAND_TIMEOUT):
     """
     Retrieve SlurmNode list from slurm nodelist notation.

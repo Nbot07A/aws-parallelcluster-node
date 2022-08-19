@@ -490,7 +490,12 @@ def test_slurm_node_is_nodeaddr_set(node, expected_output):
     [
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "somestate", "queue1"), False),
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "MIXED+POWERING_UP+CLOUD+DRAIN", "queue1"), True),
-        (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "ALLOCATED+Not_RESPONDING+CLOUD+DRAIN", "queue1"), True),
+        (
+            SlurmNode(
+                "queue1-st-c5xlarge-1", "nodeip", "nodehostname", "ALLOCATED+Not_RESPONDING+CLOUD+DRAIN", "queue1"
+            ),
+            True,
+        ),
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "IDLE+CLOUD", "queue1"), False),
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "DOWN+CLOUD", "queue1"), False),
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "COMPLETING+DRAIN", "queue1"), True),
@@ -505,8 +510,16 @@ def test_slurm_node_has_job(node, expected_output):
     [
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "somestate", "queue1"), False),
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "MIXED+POWERING_UP+CLOUD+DRAIN", "queue1"), False),
-        (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "ALLOCATED+Not_RESPONDING+CLOUD+DRAIN", "queue1"), False),
-        (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "IDLE+Not_RESPONDING+CLOUD+DRAIN", "queue1"), True),
+        (
+            SlurmNode(
+                "queue1-st-c5xlarge-1", "nodeip", "nodehostname", "ALLOCATED+Not_RESPONDING+CLOUD+DRAIN", "queue1"
+            ),
+            False,
+        ),
+        (
+            SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "IDLE+Not_RESPONDING+CLOUD+DRAIN", "queue1"),
+            True,
+        ),
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "DOWN+CLOUD+DRAIN", "queue1"), True),
     ],
 )
@@ -519,7 +532,12 @@ def test_slurm_node_is_drained(node, expected_output):
     [
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "somestate", "queue1"), False),
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "MIXED+POWERING_UP+CLOUD+DOWN", "queue1"), True),
-        (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "ALLOCATED+Not_RESPONDING+CLOUD+DRAIN", "queue1"), False),
+        (
+            SlurmNode(
+                "queue1-st-c5xlarge-1", "nodeip", "nodehostname", "ALLOCATED+Not_RESPONDING+CLOUD+DRAIN", "queue1"
+            ),
+            False,
+        ),
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "DOWN+Not_RESPONDING+CLOUD", "queue1"), True),
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "DOWN+CLOUD+POWER", "queue1"), True),
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "IDLE~+CLOUD+POWERING_DOWN", "queue1"), False),
@@ -534,7 +552,12 @@ def test_slurm_node_is_down(node, expected_output):
     [
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "IDLE+CLOUD+POWER", "queue1"), True),
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "MIXED+POWERING_UP+CLOUD+DRAIN", "queue1"), False),
-        (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "ALLOCATED+Not_RESPONDING+CLOUD+DOWN", "queue1"), False),
+        (
+            SlurmNode(
+                "queue1-st-c5xlarge-1", "nodeip", "nodehostname", "ALLOCATED+Not_RESPONDING+CLOUD+DOWN", "queue1"
+            ),
+            False,
+        ),
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "IDLE+CLOUD+POWERING_DOWN", "queue1"), False),
         (SlurmNode("queue1-st-c5xlarge-1", "nodeip", "nodehostname", "IDLE+POWERING_UP+CLOUD", "queue1"), True),
     ],
