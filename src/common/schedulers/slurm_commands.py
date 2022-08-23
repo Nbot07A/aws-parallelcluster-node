@@ -15,6 +15,8 @@ import logging
 import re
 from enum import Enum
 
+from pcluster.utils import retry
+
 from common.utils import check_command_output, grouper, run_command
 
 PENDING_RESOURCES_REASONS = [
@@ -312,6 +314,7 @@ def set_nodes_drain(nodes, reason):
     update_nodes(nodes, state="drain", reason=reason)
 
 
+@retry(stop_max_attempt_number=3, wait_fixed=1500)
 def set_nodes_power_down(nodes, reason=None):
     """Place slurm node into power_down state and reset nodeaddr/nodehostname."""
     reset_nodes(nodes=nodes, state="power_down_force", reason=reason, raise_on_error=True)
