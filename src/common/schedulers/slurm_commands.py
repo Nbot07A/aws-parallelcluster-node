@@ -70,6 +70,8 @@ class SlurmNode:
     SLURM_SCONTROL_DRAIN_STATE = "DRAIN"
     SLURM_SCONTROL_POWERING_DOWN_STATES = {"POWERING_DOWN", "POWER_DOWN"}
     SLURM_SCONTROL_POWER_STATE = {"IDLE", "CLOUD", "POWERED_DOWN"}
+    SLURM_SCONTROL_REBOOT_REQUESTED_STATE = "REBOOT_REQUESTED"
+    SLURM_SCONTROL_REBOOT_ISSUED_STATE = "REBOOT_ISSUED"
 
     def __init__(self, name, nodeaddr, nodehostname, state, partitions=None):
         """Initialize slurm node with attributes."""
@@ -132,7 +134,26 @@ class SlurmNode:
     def __str__(self):
         return f"{self.name}({self.nodeaddr})"
 
+    def is_reboot_requested(self):
+        return self.SLURM_SCONTROL_REBOOT_REQUESTED_STATE in self.states
 
+    def is_reboot_issued(self):
+        return self.SLURM_SCONTROL_REBOOT_ISSUED_STATE in self.states
+
+    def is_rebooting(self):
+        """
+        Check if the node is rebooting via scontrol reboot.
+        Check that the node is in a state consistent with the scontrol reboot request.
+        """
+        cond = False
+        if self.is_reboot_issued() or self.is_reboot_requested():
+            logging.debug(
+                "Node state check: node %s is currently rebooting, ignoring, node state: %s",
+                self,
+                self.state_string,
+            )
+            cond = True
+            return cond
 class InvalidNodenameError(ValueError):
     r"""
     Exception raised when encountering a NodeName that is invalid/incorrectly formatted.
