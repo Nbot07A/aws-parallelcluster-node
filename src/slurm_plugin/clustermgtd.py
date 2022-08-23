@@ -749,7 +749,7 @@ class ClusterManager:
         if node.is_rebooting():
             return True
         # Check to see if node is in DRAINED, ignoring any node currently being replaced
-        if node.is_drained() and self._config.terminate_drain_nodes:
+        if node.is_drained() and not node.is_power_down() and self._config.terminate_drain_nodes:
             if self._is_node_being_replaced(node, private_ip_to_instance_map):
                 log.debug("Node state check: node %s in DRAINED but is currently being replaced, ignoring", node)
                 return True
