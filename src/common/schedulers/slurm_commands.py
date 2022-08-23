@@ -147,15 +147,16 @@ class SlurmNode:
         Check if the node is rebooting via scontrol reboot.
         Check that the node is in a state consistent with the scontrol reboot request.
         """
-        cond = False
         if self.is_reboot_issued() or self.is_reboot_requested():
             logging.debug(
                 "Node state check: node %s is currently rebooting, ignoring, node state: %s",
                 self,
                 self.state_string,
             )
-            cond = True
-            return cond
+            return True
+        return False
+
+
 class InvalidNodenameError(ValueError):
     r"""
     Exception raised when encountering a NodeName that is invalid/incorrectly formatted.
