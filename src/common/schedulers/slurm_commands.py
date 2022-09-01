@@ -15,7 +15,7 @@ import logging
 import re
 from enum import Enum
 
-from pcluster.utils import retry
+from retrying import retry
 
 from common.utils import check_command_output, grouper, run_command
 
